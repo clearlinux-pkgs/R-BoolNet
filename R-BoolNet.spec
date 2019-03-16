@@ -4,18 +4,18 @@
 #
 Name     : R-BoolNet
 Version  : 2.1.4
-Release  : 5
+Release  : 6
 URL      : https://cran.r-project.org/src/contrib/BoolNet_2.1.4.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/BoolNet_2.1.4.tar.gz
 Summary  : Construction, Simulation and Analysis of Boolean Networks
 Group    : Development/Tools
 License  : Artistic-2.0
-Requires: R-BoolNet-lib
+Requires: R-BoolNet-lib = %{version}-%{release}
 Requires: R-XML
 Requires: R-igraph
 BuildRequires : R-XML
 BuildRequires : R-igraph
-BuildRequires : clr-R-helpers
+BuildRequires : buildreq-R
 
 %description
 asynchronous, probabilistic and temporal Boolean networks, and to
@@ -37,11 +37,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1530507849
+export SOURCE_DATE_EPOCH=1552721852
 
 %install
+export SOURCE_DATE_EPOCH=1552721852
 rm -rf %{buildroot}
-export SOURCE_DATE_EPOCH=1530507849
 export LANG=C
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -59,9 +59,9 @@ echo "FFLAGS = $FFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 echo "CXXFLAGS = $CXXFLAGS -march=haswell -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library BoolNet
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx2 ; mv $i.avx2 ~/.stash/; done
-echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512 " > ~/.R/Makevars
-echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512 " >> ~/.R/Makevars
-echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize -mprefer-vector-width=512  " >> ~/.R/Makevars
+echo "CFLAGS = $CFLAGS -march=skylake-avx512 -ftree-vectorize " > ~/.R/Makevars
+echo "FFLAGS = $FFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
+echo "CXXFLAGS = $CXXFLAGS -march=skylake-avx512 -ftree-vectorize " >> ~/.R/Makevars
 R CMD INSTALL --preclean --install-tests --no-test-load --built-timestamp=${SOURCE_DATE_EPOCH} --build  -l %{buildroot}/usr/lib64/R/library BoolNet
 for i in `find %{buildroot}/usr/lib64/R/ -name "*.so"`; do mv $i $i.avx512 ; mv $i.avx512 ~/.stash/; done
 echo "CFLAGS = $CFLAGS -ftree-vectorize " > ~/.R/Makevars
@@ -76,8 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export _R_CHECK_FORCE_SUGGESTS_=false
-R CMD check --no-manual --no-examples --no-codoc -l %{buildroot}/usr/lib64/R/library BoolNet|| : 
-cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
+R CMD check --no-manual --no-examples --no-codoc  BoolNet || :
 
 
 %files
@@ -115,7 +114,6 @@ cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 /usr/lib64/R/library/BoolNet/help/paths.rds
 /usr/lib64/R/library/BoolNet/html/00Index.html
 /usr/lib64/R/library/BoolNet/html/R.css
-/usr/lib64/R/library/BoolNet/libs/symbols.rds
 
 %files lib
 %defattr(-,root,root,-)
