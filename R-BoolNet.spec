@@ -4,7 +4,7 @@
 #
 Name     : R-BoolNet
 Version  : 2.1.5
-Release  : 14
+Release  : 15
 URL      : https://cran.r-project.org/src/contrib/BoolNet_2.1.5.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/BoolNet_2.1.5.tar.gz
 Summary  : Construction, Simulation and Analysis of Boolean Networks
@@ -13,11 +13,11 @@ License  : Artistic-2.0
 Requires: R-BoolNet-lib = %{version}-%{release}
 Requires: R-XML
 Requires: R-igraph
-Requires: R-pkgconfig
 BuildRequires : R-XML
 BuildRequires : R-igraph
 BuildRequires : R-pkgconfig
 BuildRequires : buildreq-R
+BuildRequires : util-linux
 
 %description
 asynchronous, probabilistic and temporal Boolean networks, and to
@@ -38,13 +38,13 @@ lib components for the R-BoolNet package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1555434437
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1571804998
 
 %install
-export SOURCE_DATE_EPOCH=1555434437
+export SOURCE_DATE_EPOCH=1571804998
 rm -rf %{buildroot}
-export LANG=C
+export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
 export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
@@ -73,7 +73,7 @@ R CMD INSTALL --preclean --install-tests --built-timestamp=${SOURCE_DATE_EPOCH} 
 cp ~/.stash/* %{buildroot}/usr/lib64/R/library/*/libs/ || :
 %{__rm} -rf %{buildroot}%{_datadir}/R/library/R.css
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
