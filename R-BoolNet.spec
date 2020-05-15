@@ -4,7 +4,7 @@
 #
 Name     : R-BoolNet
 Version  : 2.1.5
-Release  : 18
+Release  : 19
 URL      : https://cran.r-project.org/src/contrib/BoolNet_2.1.5.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/BoolNet_2.1.5.tar.gz
 Summary  : Construction, Simulation and Analysis of Boolean Networks
@@ -15,9 +15,7 @@ Requires: R-XML
 Requires: R-igraph
 BuildRequires : R-XML
 BuildRequires : R-igraph
-BuildRequires : R-pkgconfig
 BuildRequires : buildreq-R
-BuildRequires : util-linux
 
 %description
 asynchronous, probabilistic and temporal Boolean networks, and to
@@ -33,21 +31,22 @@ lib components for the R-BoolNet package.
 
 %prep
 %setup -q -c -n BoolNet
+cd %{_builddir}/BoolNet
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1571804998
+export SOURCE_DATE_EPOCH=1589582768
 
 %install
-export SOURCE_DATE_EPOCH=1571804998
+export SOURCE_DATE_EPOCH=1589582768
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
+export FCFLAGS="$FFLAGS -O3 -flto -fno-semantic-interposition "
+export FFLAGS="$FFLAGS -O3 -flto -fno-semantic-interposition "
 export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition "
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
