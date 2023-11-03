@@ -5,7 +5,7 @@
 #
 Name     : R-BoolNet
 Version  : 2.1.9
-Release  : 45
+Release  : 46
 URL      : https://cran.r-project.org/src/contrib/BoolNet_2.1.9.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/BoolNet_2.1.9.tar.gz
 Summary  : Construction, Simulation and Analysis of Boolean Networks
